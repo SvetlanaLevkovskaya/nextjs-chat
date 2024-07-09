@@ -17,8 +17,8 @@ export const MessageList = () => {
 
   useEffect(() => {
     if (messageEndRef.current) {
-      if ('scrollIntoView' in messageEndRef.current) {
-        messageEndRef.current.scrollIntoView({ behavior: 'smooth' })
+      if ('scrollIntoView' in messageEndRef?.current) {
+        messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
       }
     }
   }, [messages])
