@@ -25,11 +25,11 @@
     }
 
     .myMessageTriangle {
-      @apply right-[-4px] top-0  rotate-180 clip-path-triangle rounded-bl-sm;
+      @apply -right-1 top-0 rotate-180 clip-path-triangle rounded-bl-sm;
     }
 
     .botMessageTriangle {
-      @apply left-[-4px] top-0  rotate-180 clip-path-bot-triangle rounded-br-sm;
+      @apply -left-1 top-0 rotate-180 clip-path-bot-triangle rounded-br-sm;
     }
   }
 }

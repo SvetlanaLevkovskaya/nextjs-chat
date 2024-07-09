@@ -3,17 +3,15 @@
 }
 
 .scrollbar::-webkit-scrollbar {
-  width: 4px;
+  @apply w-1;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  background-color: #a19f9f;
-  border-radius: 4px;
+  @apply bg-neutral-400 rounded;
 }
 
 .scrollbar::-webkit-scrollbar-track {
-  background: #f5f0f0;
-  border-radius: 4px;
+  @apply bg-neutral-200 rounded;
 }
 
 /*

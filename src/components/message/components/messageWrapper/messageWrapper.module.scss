@@ -1,6 +1,6 @@
 .messageContainer {
   .messageText {
-    word-break: break-word;
+    @apply break-words;
   }
 
   .messageFooter {
