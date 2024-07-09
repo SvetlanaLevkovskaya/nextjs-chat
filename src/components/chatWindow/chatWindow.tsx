@@ -18,7 +18,7 @@ export const ChatWindow = () => {
     if (messageListRef.current) {
       setTimeout(() => {
         if ('scrollTo' in messageListRef.current) {
-          messageListRef.current.scrollTo({
+          messageListRef.current?.scrollTo({
             top: messageListRef.current.scrollHeight,
             behavior: 'smooth',
           })
