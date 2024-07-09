@@ -5,8 +5,8 @@ import Image from 'next/image'
 
 export const Header = () => (
   <header className="flex justify-between items-center p-3.5 border-b border-gray-200">
-    <div className="sm-400:block hidden">
-      <Image src="/avatar-group.png" alt="avatar-group" width={100} height={26} priority />
+    <div className="sm-400:block hidden w-auto h-auto">
+      <Image src="/avatar-group.png" alt="avatar-group" width={100} height={50} priority />
     </div>
 
     <div className="flex flex-col justify-center items-center gap-0.5">
