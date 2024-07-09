@@ -47,9 +47,7 @@ export const Message: FC<MessageProps> = ({ message }) => {
     () =>
       clsx(styles.messageBubble, {
         [styles.myMessage]: message.user === 'me',
-        [styles.right]: message.user === 'me',
         [styles.botMessage]: message.user !== 'me',
-        [styles.left]: message.user !== 'me',
       }),
     [message.user]
   )
@@ -63,6 +61,12 @@ export const Message: FC<MessageProps> = ({ message }) => {
       >
         {message.user !== 'me' && <TitleWrapper />}
         <MessageWrapper message={message} />
+        {message.user === 'me' && (
+          <div className={`${styles.triangle} ${styles.myMessageTriangle}`} />
+        )}
+        {message.user !== 'me' && (
+          <div className={`${styles.triangle} ${styles.botMessageTriangle}`} />
+        )}
       </div>
       {message.user === 'me' && (
         <MessageActions onEdit={handleEditMessage} onDelete={handleDeleteMessage} />

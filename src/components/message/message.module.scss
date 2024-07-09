@@ -10,32 +10,34 @@
   }
 
   .messageBubble {
-    @apply relative max-w-[30ch] sm-500:max-w-[60ch] rounded-md px-2 py-1 min-w-[14ch];
+    @apply relative max-w-[30ch] h-full sm-500:max-w-[60ch] rounded-md px-2 py-1 min-w-[14ch];
 
     &.myMessage {
       @apply bg-blue-600 text-white;
-
-      &.right::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: -9px;
-        border-width: 10px 10px 0 10px;
-        border-color: rgb(37 99 235 / 1) transparent transparent transparent;
-      }
+      position: relative;
     }
 
     &.botMessage {
       @apply bg-neutral-200;
+      position: relative;
+    }
 
-      &.left::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -7px;
-        border-width: 10px 10px 0 10px;
-        border-color: rgb(229 229 229 / 1) transparent transparent transparent;
-      }
+    .triangle {
+      @apply absolute w-2.5 h-2.5 bg-inherit
+    }
+
+    .myMessageTriangle {
+      @apply right-[-4px] top-0 bg-blue-600;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transform: rotate(180deg);
+      border-radius: 0.25em;
+    }
+
+    .botMessageTriangle {
+      @apply left-[-4px] top-0 bg-neutral-200;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transform: rotate(180deg);
+      border-radius: 0.25em;
     }
   }
 }
