@@ -17,9 +17,10 @@ export const ChatWindow = () => {
   const scrollToBottom = useCallback(() => {
     if (messageListRef.current) {
       setTimeout(() => {
-        if ('scrollTo' in messageListRef?.current) {
-          messageListRef.current?.scrollTo({
-            top: messageListRef.current.scrollHeight,
+        const messageListElement = messageListRef.current
+        if (messageListElement && 'scrollTo' in messageListElement) {
+          messageListElement.scrollTo({
+            top: messageListElement.scrollHeight,
             behavior: 'smooth',
           })
         }
