@@ -1,0 +1,11 @@
+.wrapper {
+  @apply flex items-center px-3.5 pt-0.5  pb-2 border-t border-gray-200;
+
+  & input {
+    @apply flex-1 border-none outline-none p-[10px];
+  }
+
+  & .icons {
+    @apply flex items-center gap-3;
+  }
+}

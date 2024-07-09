@@ -23,8 +23,6 @@ export const MessageList = () => {
     }
   }, [messages])
 
-  console.log('messageEndRef', messageEndRef)
-
   return (
     <div className={clsx(styles.wrapper, styles.scrollbar)}>
       {messages.map((msg) => (

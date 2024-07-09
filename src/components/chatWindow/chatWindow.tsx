@@ -7,6 +7,8 @@ import dayjs from 'dayjs'
 import { InputField } from '@/components/inputField/inputField'
 import { MessageList } from '@/components/messageList/messageList'
 
+import styles from './chatWindow.module.scss'
+
 import useStore from '@/store'
 import { IMessage } from '@/types'
 
@@ -44,10 +46,8 @@ export const ChatWindow = () => {
   }, [addMessage, messages])
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="text-center p-3.5 sm:p-3.5 sm:pl-28 text-sx text-neutral-500">
-        {dayjs().format('M/D/YYYY')}
-      </div>
+    <div className={styles.wrapper}>
+      <div className={styles.dateWrapper}>{dayjs().format('M/D/YYYY')}</div>
       <MessageList />
       <InputField />
       <div ref={messageListRef} />

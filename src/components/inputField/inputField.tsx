@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 
-import { LinkOutlined, SendOutlined, SmileOutlined } from '@ant-design/icons'
+import { SendOutlined, SmileOutlined, UploadOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
+
+import styles from './inputField.module.scss'
 
 import useStore from '@/store'
 
@@ -19,11 +21,10 @@ export const InputField = () => {
   }
 
   return (
-    <div className="flex items-center px-3.5 pt-0.5  pb-2 border-t border-gray-200">
+    <div className={styles.wrapper}>
       <SmileOutlined style={{ color: '#3D3D3D' }} />
 
       <input
-        className="flex-1 border-none outline-none p-[10px]"
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -32,8 +33,8 @@ export const InputField = () => {
         autoFocus
       />
 
-      <div className="flex items-center gap-4">
-        <LinkOutlined style={{ color: '#3D3D3D' }} />
+      <div className={styles.icons}>
+        <UploadOutlined style={{ color: '#3D3D3D' }} />
         <SendOutlined onClick={handleSend} style={{ color: text ? '#007AFF' : '#8E8E93' }} />
       </div>
     </div>
