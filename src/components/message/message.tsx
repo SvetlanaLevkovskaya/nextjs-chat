@@ -33,21 +33,15 @@ export const Message: FC<MessageProps> = ({ message }) => {
 
   return (
     <div
-      className={clsx('flex m-2 relative', {
-        ['items-end flex-col gap-0.5']: message.user === 'me',
-        ['justify-start']: message.user !== 'me',
+      className={clsx(styles.wrapper, {
+        [styles.myWrapper]: message.user === 'me',
+        [styles.botWrapper]: message.user !== 'me',
       })}
     >
       {message.user !== 'me' && (
-        <div className="relative mr-2">
-          <Image
-            src="/avatar.png"
-            alt="Bot Avatar"
-            className="w-10 h-10 rounded-full"
-            width={32}
-            height={32}
-          />
-          <span className="absolute bottom-[36px] right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
+        <div className={styles.avatarWrapper}>
+          <Image src="/avatar.png" alt="avatar" className={styles.avatar} width={32} height={32} />
+          <span className={styles.badge}></span>
         </div>
       )}
       <div
@@ -60,16 +54,18 @@ export const Message: FC<MessageProps> = ({ message }) => {
         style={{ width: `calc(${message.text.length}ch + ${message.timestamp.length}ch)` }}
       >
         {message.user !== 'me' && (
-          <div className="flex justify-start items-center gap-1 mb-2">
-            <p className="font-semibold">Andrew</p>
-            <p className="text-neutral-500">Product</p>
+          <div className={styles.titleWrapper}>
+            <p className={styles.titleName}>Andrew</p>
+            <p className={styles.textNeutral500}>Product</p>
           </div>
         )}
 
         <div className={styles.messageContainer}>
           <p className={styles.messageText}>{message.text}</p>
           <div className={styles.messageFooter}>
-            <p>{message.timestamp}</p>
+            <p className={clsx({ [styles.textNeutral500]: message.user !== 'me' })}>
+              {message.timestamp}
+            </p>
             {message.user === 'me' && <Check />}
           </div>
         </div>
