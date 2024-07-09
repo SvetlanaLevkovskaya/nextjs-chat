@@ -1,0 +1,18 @@
+.messageContainer {
+
+  .messageText {
+    word-break: break-word;
+  }
+
+  .messageFooter {
+    @apply flex justify-end items-center gap-1;
+  }
+
+  .textNeutral500 {
+    @apply text-neutral-500 font-light;
+  }
+
+  .fontLight {
+    @apply font-extralight;
+  }
+}

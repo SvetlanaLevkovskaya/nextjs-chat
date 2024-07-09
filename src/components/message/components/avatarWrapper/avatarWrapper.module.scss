@@ -1,0 +1,11 @@
+.avatarWrapper {
+  @apply relative mr-2 w-[32px] h-[32px] bg-neutral-200 rounded-full;
+
+  .avatar {
+    @apply w-auto h-auto rounded-full;
+  }
+
+  .badge {
+    @apply absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white;
+  }
+}

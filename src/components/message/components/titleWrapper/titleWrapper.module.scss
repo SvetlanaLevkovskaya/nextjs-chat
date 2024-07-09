@@ -1,0 +1,11 @@
+.titleWrapper {
+  @apply flex justify-start items-center gap-1 mb-2;
+
+  .titleName {
+    @apply font-semibold;
+  }
+
+  .textNeutral500 {
+    @apply text-neutral-500;
+  }
+}

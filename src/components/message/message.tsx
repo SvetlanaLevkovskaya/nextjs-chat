@@ -1,12 +1,15 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
-import Image from 'next/image'
 
-import { Check } from '@/components/ui/icons/icons'
+import {
+  AvatarWrapper,
+  MessageActions,
+  MessageWrapper,
+  TitleWrapper,
+} from '@/components/message/components'
 
 import styles from './message.module.scss'
 
@@ -20,66 +23,49 @@ interface MessageProps {
 export const Message: FC<MessageProps> = ({ message }) => {
   const { editMessage, deleteMessage } = useStore()
 
-  const handleEditMessage = () => {
+  const handleEditMessage = useCallback(() => {
     const newText = prompt('Edit message', message.text)
-    if (newText) {
-      editMessage(message.id, newText)
+    if (newText && newText.trim() !== message.text.trim()) {
+      editMessage(message.id, newText.trim())
     }
-  }
+  }, [editMessage, message])
 
-  const handleDeleteMessage = () => {
+  const handleDeleteMessage = useCallback(() => {
     deleteMessage(message.id)
-  }
+  }, [deleteMessage, message.id])
 
-  return (
-    <div
-      className={clsx(styles.wrapper, {
+  const wrapperStyle = useMemo(
+    () =>
+      clsx(styles.wrapper, {
         [styles.myWrapper]: message.user === 'me',
         [styles.botWrapper]: message.user !== 'me',
-      })}
-    >
-      {message.user !== 'me' && (
-        <div className={styles.avatarWrapper}>
-          <Image src="/avatar.png" alt="avatar" className={styles.avatar} width={32} height={32} />
-          <span className={styles.badge}></span>
-        </div>
-      )}
+      }),
+    [message.user]
+  )
+
+  const messageStyle = useMemo(
+    () =>
+      clsx(styles.messageBubble, {
+        [styles.myMessage]: message.user === 'me',
+        [styles.right]: message.user === 'me',
+        [styles.botMessage]: message.user !== 'me',
+        [styles.left]: message.user !== 'me',
+      }),
+    [message.user]
+  )
+
+  return (
+    <div className={wrapperStyle}>
+      {message.user !== 'me' && <AvatarWrapper />}
       <div
-        className={clsx(styles.messageBubble, {
-          [styles.myMessage]: message.user === 'me',
-          [styles.right]: message.user === 'me',
-          [styles.botMessage]: message.user !== 'me',
-          [styles.left]: message.user !== 'me',
-        })}
+        className={messageStyle}
         style={{ width: `calc(${message.text.length}ch + ${message.timestamp.length}ch)` }}
       >
-        {message.user !== 'me' && (
-          <div className={styles.titleWrapper}>
-            <p className={styles.titleName}>Andrew</p>
-            <p className={styles.textNeutral500}>Product</p>
-          </div>
-        )}
-
-        <div className={styles.messageContainer}>
-          <p className={styles.messageText}>{message.text}</p>
-          <div className={styles.messageFooter}>
-            <p
-              className={clsx({
-                [styles.textNeutral500]: message.user !== 'me',
-                [styles.fontLight]: message.user == 'me',
-              })}
-            >
-              {message.timestamp}
-            </p>
-            {message.user === 'me' && <Check />}
-          </div>
-        </div>
+        {message.user !== 'me' && <TitleWrapper />}
+        <MessageWrapper message={message} />
       </div>
       {message.user === 'me' && (
-        <div className="flex mt-1 space-x-2">
-          <EditOutlined style={{ color: '#8E8E93' }} onClick={handleEditMessage} />
-          <DeleteOutlined style={{ color: '#8E8E93' }} onClick={handleDeleteMessage} />
-        </div>
+        <MessageActions onEdit={handleEditMessage} onDelete={handleDeleteMessage} />
       )}
     </div>
   )
