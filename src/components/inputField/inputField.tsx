@@ -8,6 +8,7 @@ import dayjs from 'dayjs'
 import styles from './inputField.module.scss'
 
 import useStore from '@/store'
+import { IMessage } from '@/types'
 
 export const InputField = () => {
   const [text, setText] = useState('')
@@ -15,11 +16,16 @@ export const InputField = () => {
 
   const handleSend = () => {
     if (text.trim()) {
-      addMessage({ id: Date.now(), user: 'me', text, timestamp: dayjs().format('h:mm A') })
+      const newMessage: IMessage = {
+        id: Date.now(),
+        user: 'me',
+        text,
+        timestamp: dayjs().format('h:mm A'),
+      }
+      addMessage(newMessage)
       setText('')
     }
   }
-
   return (
     <div className={styles.wrapper}>
       <SmileOutlined style={{ color: '#3D3D3D' }} />

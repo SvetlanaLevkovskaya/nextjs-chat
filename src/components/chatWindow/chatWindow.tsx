@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import dayjs from 'dayjs'
 
@@ -45,9 +45,11 @@ export const ChatWindow = () => {
     }
   }, [addMessage, messages])
 
+  const currentDate = useMemo(() => dayjs().format('M/D/YYYY'), [])
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.dateWrapper}>{dayjs().format('M/D/YYYY')}</div>
+      <div className={styles.dateWrapper}>{currentDate}</div>
       <MessageList />
       <InputField />
       <div ref={messageListRef} />
