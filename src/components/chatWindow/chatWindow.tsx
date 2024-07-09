@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 import dayjs from 'dayjs'
 
@@ -12,6 +12,24 @@ import { IMessage } from '@/types'
 
 export const ChatWindow = () => {
   const { messages, addMessage } = useStore()
+  const messageListRef = useRef<HTMLDivElement | null>(null)
+
+  const scrollToBottom = useCallback(() => {
+    if (messageListRef.current) {
+      setTimeout(() => {
+        if ('scrollTo' in messageListRef.current) {
+          messageListRef.current.scrollTo({
+            top: messageListRef.current.scrollHeight,
+            behavior: 'smooth',
+          })
+        }
+      }, 0)
+    }
+  }, [])
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages, scrollToBottom])
 
   useEffect(() => {
     if (messages.length && messages[messages.length - 1].user === 'me') {
@@ -34,6 +52,7 @@ export const ChatWindow = () => {
       </div>
       <MessageList />
       <InputField />
+      <div ref={messageListRef} />
     </div>
   )
 }

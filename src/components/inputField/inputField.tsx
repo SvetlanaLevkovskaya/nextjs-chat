@@ -19,7 +19,7 @@ export const InputField = () => {
   }
 
   return (
-    <div className="flex items-center px-3.5 py-0.5 border-t border-gray-200">
+    <div className="flex items-center px-3.5 pt-0.5  pb-2 border-t border-gray-200">
       <SmileOutlined style={{ color: '#3D3D3D' }} />
 
       <input
@@ -27,8 +27,9 @@ export const InputField = () => {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+        onKeyDown={(e) => e.key === 'Enter' && handleSend()}
         placeholder="Start typing..."
+        autoFocus
       />
 
       <div className="flex items-center gap-4">
