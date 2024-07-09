@@ -10,7 +10,7 @@
   }
 
   .messageBubble {
-    @apply relative max-w-[60ch] rounded-md px-2 py-1 min-w-[14ch];
+    @apply relative max-w-[30ch] sm-500:max-w-[60ch] rounded-md px-2 py-1 min-w-[14ch];
 
     &.myMessage {
       @apply bg-blue-600 text-white;

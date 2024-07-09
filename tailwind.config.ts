@@ -1,5 +1,3 @@
-import type { Config } from 'tailwindcss'
-
 const config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,6 +8,7 @@ const config = {
     extend: {
       screens: {
         'sm-400': '400px',
+        'sm-500': '500px',
       },
     },
   },
