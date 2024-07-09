@@ -1,0 +1,46 @@
+.messageBubble {
+  @apply relative max-w-[60%] rounded-md p-2 min-w-24;
+}
+
+.myMessage {
+  @apply bg-blue-600 text-white;
+}
+
+.botMessage {
+  @apply bg-neutral-200;
+}
+
+.messageContainer {
+  @apply grid grid-rows-[auto,1fr] grid-cols-[auto] max-w-full;
+}
+
+.messageFooter {
+  @apply row-[2/3] flex justify-end items-center gap-[0.5ch];
+}
+
+.messageWrapper {
+  @apply inline-block;
+}
+
+.messageText {
+  grid-row: 1;
+  word-break: break-word;
+}
+
+.right::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -9px;
+  border-width: 10px 10px 0 10px;
+  border-color: rgb(37 99 235 / 1) transparent transparent transparent;
+}
+
+.left::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -7px;
+  border-width: 10px 10px 0 10px;
+  border-color: rgb(229 229 229 / 1) transparent transparent transparent;
+}
