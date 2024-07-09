@@ -1,0 +1,84 @@
+.wrapper {
+  @apply flex m-2;
+
+  &.myWrapper {
+    @apply flex-col items-end gap-0.5;
+  }
+
+  &.botWrapper {
+    @apply justify-start;
+  }
+
+  .avatarWrapper {
+    @apply relative mr-2 w-[32px] h-[32px] bg-neutral-200 rounded-full;
+
+    .avatar {
+      @apply w-auto h-auto rounded-full;
+    }
+
+    .badge {
+      @apply absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white;
+    }
+  }
+
+  .messageBubble {
+    @apply relative max-w-[60ch] rounded-md px-2 py-1 min-w-[14ch];
+
+    &.myMessage {
+      @apply bg-blue-600 text-white;
+
+      &.right::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -9px;
+        border-width: 10px 10px 0 10px;
+        border-color: rgb(37 99 235 / 1) transparent transparent transparent;
+      }
+    }
+
+    &.botMessage {
+      @apply bg-neutral-200;
+
+      &.left::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -7px;
+        border-width: 10px 10px 0 10px;
+        border-color: rgb(229 229 229 / 1) transparent transparent transparent;
+      }
+    }
+
+    .titleWrapper {
+      @apply flex justify-start items-center gap-1 mb-2;
+
+      .titleName {
+        @apply font-semibold;
+      }
+
+      .textNeutral500 {
+        @apply text-neutral-500;
+      }
+    }
+
+    .messageContainer {
+
+      .messageText {
+        word-break: break-word;
+      }
+
+      .messageFooter {
+        @apply flex justify-end items-center gap-1;
+      }
+
+      .textNeutral500 {
+        @apply text-neutral-500 font-light;
+      }
+
+      .fontLight {
+        @apply font-extralight;
+      }
+    }
+  }
+}

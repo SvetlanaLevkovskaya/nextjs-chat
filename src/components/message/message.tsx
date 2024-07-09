@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 import { Check } from '@/components/ui/icons/icons'
 
-import styles from './message.module.css'
+import styles from './message.module.scss'
 
 import useStore from '@/store'
 import { IMessage } from '@/types'
@@ -63,7 +63,12 @@ export const Message: FC<MessageProps> = ({ message }) => {
         <div className={styles.messageContainer}>
           <p className={styles.messageText}>{message.text}</p>
           <div className={styles.messageFooter}>
-            <p className={clsx({ [styles.textNeutral500]: message.user !== 'me' })}>
+            <p
+              className={clsx({
+                [styles.textNeutral500]: message.user !== 'me',
+                [styles.fontLight]: message.user == 'me',
+              })}
+            >
               {message.timestamp}
             </p>
             {message.user === 'me' && <Check />}
