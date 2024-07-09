@@ -1,27 +1,30 @@
 .wrapper {
-  @apply flex justify-between items-center p-3.5 border-b border-gray-200;
+  @apply sticky top-0 z-10 border-b border-gray-200 bg-white;
 
-  & .imageWrapper {
-    @apply sm-400:block hidden w-auto h-auto;
-  }
+  & .header {
+    @apply flex justify-between items-center p-3;
+    & .imageWrapper {
+      @apply sm-400:block hidden w-auto h-auto;
+    }
 
-  & .logoWrapper {
-    @apply flex flex-col justify-center items-center gap-0.5;
+    & .logoWrapper {
+      @apply flex flex-col justify-center items-center gap-0.5;
 
-    .subWrapper {
-      @apply flex justify-center items-center gap-2;
+      .subWrapper {
+        @apply flex justify-center items-center gap-2;
 
-      h4 {
-        @apply font-semibold;
+        h4 {
+          @apply font-semibold;
+        }
+      }
+
+      span {
+        @apply text-neutral-500;
       }
     }
 
-    span {
-      @apply text-neutral-500;
+    .iconWrapper {
+      @apply flex cursor-pointer;
     }
-  }
-
-  .iconWrapper {
-    @apply flex cursor-pointer;
   }
 }
