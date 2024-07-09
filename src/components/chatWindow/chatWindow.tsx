@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react'
 import dayjs from 'dayjs'
 
 import { InputField } from '@/components/inputField/inputField'
-import { MessageList } from '@/components/messageList/messageList'
+import { Messages } from '@/components/messages/messages'
 
 import styles from './chatWindow.module.scss'
 
@@ -50,7 +50,7 @@ export const ChatWindow = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.dateWrapper}>{currentDate}</div>
-      <MessageList />
+      <Messages />
       <InputField />
       <div ref={messageListRef} />
     </div>

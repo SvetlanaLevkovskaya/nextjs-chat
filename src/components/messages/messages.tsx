@@ -7,11 +7,11 @@ import { motion } from 'framer-motion'
 
 import { Message } from '@/components/message/message'
 
-import styles from './messageList.module.scss'
+import styles from './messages.module.scss'
 
 import useStore from '@/store'
 
-export const MessageList = () => {
+export const Messages = () => {
   const { messages } = useStore()
   const messageEndRef = useRef<HTMLDivElement | null>(null)
 
