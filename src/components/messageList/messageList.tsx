@@ -23,6 +23,8 @@ export const MessageList = () => {
     }
   }, [messages])
 
+  console.log('messageEndRef', messageEndRef)
+
   return (
     <div className={clsx(styles.wrapper, styles.scrollbar)}>
       {messages.map((msg) => (
@@ -30,7 +32,7 @@ export const MessageList = () => {
           key={msg.id}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.5 }}
         >
           <Message message={msg} />
         </motion.div>
