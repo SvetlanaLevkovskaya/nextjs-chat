@@ -23,7 +23,7 @@ export const Header = () => (
       </div>
 
       <div className={styles.iconWrapper}>
-        <EllipsisOutlined style={{ color: '#666668' }} />
+        <EllipsisOutlined style={{ color: '#666668', fontSize: 16 }} />
       </div>
     </div>
   </header>

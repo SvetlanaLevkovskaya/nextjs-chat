@@ -3,6 +3,7 @@
 import { ChangeEvent, useCallback, useRef, useState } from 'react'
 
 import { SendOutlined, SmileOutlined, UploadOutlined } from '@ant-design/icons'
+import clsx from 'clsx'
 import dayjs from 'dayjs'
 
 import styles from './inputField.module.scss'
@@ -66,7 +67,7 @@ export const InputField = () => {
 
   return (
     <div className={styles.wrapper}>
-      <SmileOutlined style={{ color: '#3D3D3D' }} aria-label="Emoji Picker" />
+      <SmileOutlined style={{ color: '#3D3D3D', fontSize: 16 }} aria-label="Emoji Picker" />
 
       <input
         type="text"
@@ -78,16 +79,15 @@ export const InputField = () => {
       />
 
       <div className={styles.icons}>
-        <UploadOutlined
-          onClick={handleUploadClick}
-          style={{ color: '#3D3D3D' }}
-          aria-label="Upload"
-        />
-        <SendOutlined
+        <div className={styles.iconWrapper} onClick={handleUploadClick}>
+          <UploadOutlined aria-label="Upload" style={{ fontSize: 16 }} />
+        </div>
+        <div
+          className={clsx(styles.sendIconWrapper, { [styles.activeSendIcon]: text })}
           onClick={handleSend}
-          style={{ color: text ? '#007AFF' : '#8E8E93' }}
-          aria-label="Send"
-        />
+        >
+          <SendOutlined aria-label="Send" style={{ fontSize: 16 }} />
+        </div>
       </div>
 
       <input

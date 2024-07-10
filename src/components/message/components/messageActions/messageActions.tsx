@@ -9,7 +9,7 @@ interface MessageActionsProps {
 
 export const MessageActions: FC<MessageActionsProps> = ({ onEdit, onDelete }) => (
   <div className="flex mt-1 space-x-2">
-    <EditOutlined style={{ color: '#8E8E93' }} onClick={onEdit} />
-    <DeleteOutlined style={{ color: '#8E8E93' }} onClick={onDelete} />
+    <EditOutlined style={{ color: '#8E8E93', fontSize: 14 }} onClick={onEdit} />
+    <DeleteOutlined style={{ color: '#8E8E93', fontSize: 14 }} onClick={onDelete} />
   </div>
 )
