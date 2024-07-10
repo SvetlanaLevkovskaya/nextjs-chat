@@ -52,15 +52,18 @@ export const Message: FC<MessageProps> = ({ message }) => {
     [message.user]
   )
 
+  const messageWidthStyle = !message.imageUrl
+    ? { width: `calc(${message.text.length}ch + ${message.timestamp.length}ch)` }
+    : {}
+
   return (
     <div className={wrapperStyle}>
       {message.user !== 'me' && <AvatarWrapper />}
-      <div
-        className={messageStyle}
-        style={{ width: `calc(${message.text.length}ch + ${message.timestamp.length}ch)` }}
-      >
+
+      <div className={messageStyle} style={messageWidthStyle}>
         {message.user !== 'me' && <TitleWrapper />}
         <MessageWrapper message={message} />
+
         {message.user === 'me' && (
           <div className={`${styles.triangle} ${styles.myMessageTriangle}`} />
         )}

@@ -14,4 +14,7 @@
   .fontLight {
     @apply font-extralight;
   }
+  .imageWrapper {
+    @apply bg-blue-500 rounded-md overflow-hidden mb-1 w-[250px] h-[250px];
+  }
 }

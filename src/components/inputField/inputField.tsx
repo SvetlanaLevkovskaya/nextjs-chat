@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { ChangeEvent, useCallback, useRef, useState } from 'react'
 
 import { SendOutlined, SmileOutlined, UploadOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
@@ -13,22 +13,56 @@ import { IMessage } from '@/types'
 export const InputField = () => {
   const [text, setText] = useState('')
   const { addMessage } = useStore()
+  const fileInputRef = useRef(null)
 
-  const handleSend = () => {
-    if (text.trim()) {
+  const handleSend = useCallback(() => {
+    const trimmedText = text.trim()
+    if (trimmedText) {
       const newMessage: IMessage = {
         id: Date.now(),
         user: 'me',
-        text,
+        text: trimmedText,
         timestamp: dayjs().format('h:mm A'),
       }
       addMessage(newMessage)
       setText('')
     }
+  }, [text, addMessage])
+
+  const handleFileChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      if (file) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const imageMessage: IMessage = {
+            id: Date.now(),
+            user: 'me',
+            text,
+            imageUrl: e.target.result as string,
+            timestamp: dayjs().format('h:mm A'),
+          }
+          addMessage(imageMessage)
+        }
+        reader.readAsDataURL(file)
+        setText('')
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+      }
+    },
+    [addMessage, text]
+  )
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click()
+    }
   }
+
   return (
     <div className={styles.wrapper}>
-      <SmileOutlined style={{ color: '#3D3D3D' }} />
+      <SmileOutlined style={{ color: '#3D3D3D' }} aria-label="Emoji Picker" />
 
       <input
         type="text"
@@ -40,9 +74,26 @@ export const InputField = () => {
       />
 
       <div className={styles.icons}>
-        <UploadOutlined style={{ color: '#3D3D3D' }} />
-        <SendOutlined onClick={handleSend} style={{ color: text ? '#007AFF' : '#8E8E93' }} />
+        <UploadOutlined
+          onClick={handleUploadClick}
+          style={{ color: '#3D3D3D' }}
+          aria-label="Upload"
+        />
+        <SendOutlined
+          onClick={handleSend}
+          style={{ color: text ? '#007AFF' : '#8E8E93' }}
+          aria-label="Send"
+        />
       </div>
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={handleFileChange}
+        accept="image/*"
+        aria-label="File Input"
+      />
     </div>
   )
 }
