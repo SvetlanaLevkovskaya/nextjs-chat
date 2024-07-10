@@ -14,7 +14,7 @@ interface StoreState {
 type State = StoreState
 type CustomSetState = (partial: (state: State) => void) => void
 
-const useStore = create<State>(
+const useStore = create<State, any>(
   persist(
     immer((set: CustomSetState) => ({
       messages: [],
@@ -27,6 +27,8 @@ const useStore = create<State>(
           const msg = state.messages.find((msg) => msg.id === id)
           if (msg) {
             msg.text = newText
+          } else {
+            console.warn(`Message with id ${id} not found`)
           }
         }),
       deleteMessage: (id: number) =>
