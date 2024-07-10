@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useState } from 'react'
 
 import clsx from 'clsx'
 
@@ -18,13 +18,20 @@ interface MessageProps {
 
 export const Message: FC<MessageProps> = ({ message }) => {
   const { editMessage, deleteMessage } = useStore()
+  const [isEditing, setIsEditing] = useState(false)
+  const [editText, setEditText] = useState(message.text)
 
   const handleEditMessage = useCallback(() => {
-    const newText = prompt('Edit message', message.text)
-    if (newText && newText.trim() !== message.text.trim()) {
-      editMessage(message.id, newText.trim())
+    setIsEditing(true)
+  }, [])
+
+  const handleSaveEditMessage = useCallback(() => {
+    const trimmedText = editText.trim()
+    if (trimmedText && trimmedText !== message.text) {
+      editMessage(message.id, trimmedText)
     }
-  }, [editMessage, message])
+    setIsEditing(false)
+  }, [editText, editMessage, message.id, message.text])
 
   const handleDeleteMessage = useCallback(() => {
     deleteMessage(message.id)
@@ -50,7 +57,19 @@ export const Message: FC<MessageProps> = ({ message }) => {
 
       <div className={messageStyle} style={messageWidthStyle}>
         {message.user !== 'me' && <TitleWrapper />}
-        <MessageWrapper message={message} />
+        {isEditing ? (
+          <input
+            type="text"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            onBlur={handleSaveEditMessage}
+            onKeyDown={(e) => e.key === 'Enter' && handleSaveEditMessage()}
+            autoFocus
+            className={styles.editInput}
+          />
+        ) : (
+          <MessageWrapper message={message} />
+        )}
 
         {message.user === 'me' && (
           <div className={`${styles.triangle} ${styles.myMessageTriangle}`} />
@@ -59,7 +78,7 @@ export const Message: FC<MessageProps> = ({ message }) => {
           <div className={`${styles.triangle} ${styles.botMessageTriangle}`} />
         )}
       </div>
-      {message.user === 'me' && (
+      {message.user === 'me' && !isEditing && (
         <MessageActions onEdit={handleEditMessage} onDelete={handleDeleteMessage} />
       )}
     </div>
