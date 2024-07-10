@@ -15,7 +15,11 @@ import useStore from '@/store'
 import { IMessage } from '@/types'
 
 export const ChatWindow = () => {
-  const { messages, addMessage } = useStore()
+  const { messages, addMessage } = useStore((state) => ({
+    messages: state.messages,
+    addMessage: state.addMessage,
+  }))
+
   const currentDate = useCurrentDate()
 
   useEffect(() => {

@@ -13,7 +13,10 @@ import { IMessage } from '@/types'
 
 export const InputField = () => {
   const [text, setText] = useState('')
-  const { addMessage } = useStore()
+  const { addMessage } = useStore((state) => ({
+    addMessage: state.addMessage,
+  }))
+
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleSend = useCallback(() => {

@@ -17,7 +17,11 @@ interface MessageProps {
 }
 
 export const Message: FC<MessageProps> = ({ message }) => {
-  const { editMessage, deleteMessage } = useStore()
+  const { editMessage, deleteMessage } = useStore((state) => ({
+    editMessage: state.editMessage,
+    deleteMessage: state.deleteMessage,
+  }))
+
   const [isEditing, setIsEditing] = useState(false)
   const [editText, setEditText] = useState(message.text)
 

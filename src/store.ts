@@ -1,18 +1,8 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import { immer } from 'zustand/middleware/immer'
 
 import { IMessage } from './types'
-
-const loadMessages = (): IMessage[] => {
-  if (typeof window !== 'undefined') {
-    const storedMessages = localStorage.getItem('messages')
-    return storedMessages ? JSON.parse(storedMessages) : []
-  }
-  return []
-}
-
-const saveMessages = (messages: IMessage[]) => {
-  localStorage.setItem('messages', JSON.stringify(messages))
-}
 
 interface StoreState {
   messages: IMessage[]
@@ -21,39 +11,30 @@ interface StoreState {
   deleteMessage: (id: number) => void
 }
 
-const useStore = create<StoreState>((set) => ({
-  messages: [],
-  addMessage: (message) =>
-    set((state) => {
-      const newMessages = [...state.messages, message]
-      if (typeof window !== 'undefined') {
-        saveMessages(newMessages)
-      }
-      return { messages: newMessages }
-    }),
-  editMessage: (id, newText) =>
-    set((state) => {
-      const newMessages = state.messages.map((msg) =>
-        msg.id === id ? { ...msg, text: newText } : msg
-      )
-      if (typeof window !== 'undefined') {
-        saveMessages(newMessages)
-      }
-      return { messages: newMessages }
-    }),
-  deleteMessage: (id) =>
-    set((state) => {
-      const newMessages = state.messages.filter((msg) => msg.id !== id)
-      if (typeof window !== 'undefined') {
-        saveMessages(newMessages)
-      }
-      return { messages: newMessages }
-    }),
-}))
-
-if (typeof window !== 'undefined') {
-  const storedMessages = loadMessages()
-  useStore.setState?.({ messages: storedMessages })
-}
+const useStore = create<StoreState>(
+  persist(
+    immer((set) => ({
+      messages: [],
+      addMessage: (message) =>
+        set((state) => {
+          state.messages.push(message)
+        }),
+      editMessage: (id, newText) =>
+        set((state) => {
+          const msg = state.messages.find((msg) => msg.id === id)
+          if (msg) {
+            msg.text = newText
+          }
+        }),
+      deleteMessage: (id) =>
+        set((state) => {
+          state.messages = state.messages.filter((msg) => msg.id !== id)
+        }),
+    })),
+    {
+      name: 'messages',
+    }
+  )
+)
 
 export default useStore
