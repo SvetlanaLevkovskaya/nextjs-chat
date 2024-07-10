@@ -13,7 +13,7 @@ import { IMessage } from '@/types'
 export const InputField = () => {
   const [text, setText] = useState('')
   const { addMessage } = useStore()
-  const fileInputRef = useRef(null)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleSend = useCallback(() => {
     const trimmedText = text.trim()
@@ -47,7 +47,9 @@ export const InputField = () => {
         reader.readAsDataURL(file)
         setText('')
         if (fileInputRef.current) {
-          fileInputRef.current.value = ''
+          if ('value' in fileInputRef.current) {
+            fileInputRef.current.value = ''
+          }
         }
       }
     },
@@ -56,7 +58,9 @@ export const InputField = () => {
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click()
+      if ('click' in fileInputRef.current) {
+        fileInputRef.current.click()
+      }
     }
   }
 
