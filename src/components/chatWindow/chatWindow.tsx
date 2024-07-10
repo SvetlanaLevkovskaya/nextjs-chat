@@ -1,11 +1,13 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 import dayjs from 'dayjs'
 
 import { InputField } from '@/components/inputField/inputField'
 import { Messages } from '@/components/messages/messages'
+
+import useCurrentDate from '@/hooks/useCurrentDate'
 
 import styles from './chatWindow.module.scss'
 
@@ -15,6 +17,7 @@ import { IMessage } from '@/types'
 export const ChatWindow = () => {
   const { messages, addMessage } = useStore()
   const messageListRef = useRef<HTMLDivElement | null>(null)
+  const currentDate = useCurrentDate()
 
   const scrollToBottom = useCallback(() => {
     if (messageListRef.current) {
@@ -44,8 +47,6 @@ export const ChatWindow = () => {
       }, 1000)
     }
   }, [addMessage, messages])
-
-  const currentDate = useMemo(() => dayjs().format('M/D/YYYY'), [])
 
   return (
     <div className={styles.wrapper}>
