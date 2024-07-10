@@ -12,9 +12,7 @@ import styles from './messages.module.scss'
 import useStore from '@/store'
 
 export const Messages = () => {
-  const { messages } = useStore((state) => ({
-    messages: state.messages,
-  }))
+  const messages = useStore((state) => state.messages)
 
   const messageEndRef = useRef<HTMLDivElement | null>(null)
 
