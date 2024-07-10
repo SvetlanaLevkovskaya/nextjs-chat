@@ -3,8 +3,17 @@
 
   & .header {
     @apply flex justify-between items-center p-3;
+
     & .imageWrapper {
-      @apply sm-400:block hidden w-auto h-auto;
+      @apply flex items-center w-auto h-auto;
+
+      .avatar {
+        @apply rounded-full border-2 border-white -ml-2;
+
+        &:first-of-type {
+          @apply ml-0;
+        }
+      }
     }
 
     & .logoWrapper {
@@ -25,6 +34,12 @@
 
     .iconWrapper {
       @apply flex cursor-pointer;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .header .imageWrapper {
+      @apply hidden;
     }
   }
 }

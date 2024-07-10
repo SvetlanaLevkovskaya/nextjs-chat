@@ -5,11 +5,22 @@ import Image from 'next/image'
 
 import styles from './header.module.scss'
 
+const avatars = ['/avatar.png', '/avatar.png', '/avatar.png', '/avatar.png']
+
 export const Header = () => (
   <header className={styles.wrapper}>
     <div className={styles.header}>
       <div className={styles.imageWrapper}>
-        <Image src="/avatar-group.png" alt="avatar-group" width={100} height={50} priority />
+        {avatars.map((src, index) => (
+          <Image
+            key={index}
+            src={src}
+            alt={`avatar-${index}`}
+            width={32}
+            height={32}
+            className={styles.avatar}
+          />
+        ))}
       </div>
 
       <div className={styles.logoWrapper}>
