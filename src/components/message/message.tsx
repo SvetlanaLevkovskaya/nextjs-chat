@@ -53,7 +53,7 @@ export const Message: FC<MessageProps> = ({ message }) => {
   )
 
   const messageWidthStyle = !message.imageUrl
-    ? { width: `calc(${message.text.length}ch + ${message.timestamp.length}ch)` }
+    ? { width: `calc(${message.text.length}ch + ${message.timestamp?.length}ch)` }
     : {}
 
   return (
