@@ -27,7 +27,6 @@ const useStore = create<StoreState>((set) => ({
     set((state) => {
       const newMessages = [...state.messages, message]
       if (typeof window !== 'undefined') {
-        console.log('newMessages', newMessages)
         saveMessages(newMessages)
       }
       return { messages: newMessages }

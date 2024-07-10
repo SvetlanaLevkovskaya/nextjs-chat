@@ -39,7 +39,7 @@ export const InputField = () => {
             id: Date.now(),
             user: 'me',
             text,
-            imageUrl: e.target.result as string,
+            imageUrl: e.target?.result as string,
             timestamp: dayjs().format('h:mm A'),
           }
           addMessage(imageMessage)
