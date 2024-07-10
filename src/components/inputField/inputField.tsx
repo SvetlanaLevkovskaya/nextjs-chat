@@ -47,22 +47,14 @@ export const InputField = () => {
         }
         reader.readAsDataURL(file)
         setText('')
-        if (fileInputRef.current) {
-          if ('value' in fileInputRef.current) {
-            fileInputRef.current.value = ''
-          }
-        }
+        fileInputRef.current && 'value' in fileInputRef.current && (fileInputRef.current.value = '')
       }
     },
     [addMessage, text]
   )
 
   const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      if ('click' in fileInputRef.current) {
-        fileInputRef.current.click()
-      }
-    }
+    fileInputRef.current && 'click' in fileInputRef.current && fileInputRef.current.click()
   }
 
   return (

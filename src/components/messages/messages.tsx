@@ -16,11 +16,9 @@ export const Messages = () => {
   const messageEndRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    if (messageEndRef.current) {
-      if ('scrollIntoView' in messageEndRef?.current) {
-        messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
+    messageEndRef.current &&
+      'scrollIntoView' in messageEndRef.current &&
+      messageEndRef.current.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
   return (
