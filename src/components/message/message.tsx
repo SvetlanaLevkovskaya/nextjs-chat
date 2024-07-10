@@ -1,15 +1,11 @@
 'use client'
 
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useCallback } from 'react'
 
 import clsx from 'clsx'
 
-import {
-  AvatarWrapper,
-  MessageActions,
-  MessageWrapper,
-  TitleWrapper,
-} from '@/components/message/components'
+import { AvatarWrapper, MessageWrapper, TitleWrapper } from '@/components/message/components'
+import MessageActions from '@/components/message/components/messageActions/messageActions'
 
 import styles from './message.module.scss'
 
@@ -34,23 +30,15 @@ export const Message: FC<MessageProps> = ({ message }) => {
     deleteMessage(message.id)
   }, [deleteMessage, message.id])
 
-  const wrapperStyle = useMemo(
-    () =>
-      clsx(styles.wrapper, {
-        [styles.myWrapper]: message.user === 'me',
-        [styles.botWrapper]: message.user !== 'me',
-      }),
-    [message.user]
-  )
+  const wrapperStyle = clsx(styles.wrapper, {
+    [styles.myWrapper]: message.user === 'me',
+    [styles.botWrapper]: message.user !== 'me',
+  })
 
-  const messageStyle = useMemo(
-    () =>
-      clsx(styles.messageBubble, {
-        [styles.myMessage]: message.user === 'me',
-        [styles.botMessage]: message.user !== 'me',
-      }),
-    [message.user]
-  )
+  const messageStyle = clsx(styles.messageBubble, {
+    [styles.myMessage]: message.user === 'me',
+    [styles.botMessage]: message.user !== 'me',
+  })
 
   const messageWidthStyle = !message.imageUrl
     ? { width: `calc(${message.text.length}ch + ${message.timestamp?.length}ch)` }
