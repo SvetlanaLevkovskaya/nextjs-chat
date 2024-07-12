@@ -1,22 +1,19 @@
 import { create } from 'zustand'
-import { PersistOptions, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
 import { IMessage } from './types'
 
-interface StoreState {
+type StoreState = {
   messages: IMessage[]
   addMessage: (message: IMessage) => void
   editMessage: (id: number, newText: string) => void
   deleteMessage: (id: number) => void
 }
 
-type State = StoreState
-type CustomSetState = (partial: (state: State) => void) => void
-
-const useStore = create<State, any>(
+const useStore = create<StoreState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
   persist(
-    immer((set: CustomSetState) => ({
+    immer((set) => ({
       messages: [],
       addMessage: (message: IMessage) =>
         set((state) => {
@@ -38,7 +35,7 @@ const useStore = create<State, any>(
     })),
     {
       name: 'messages',
-    } as PersistOptions<State>
+    }
   )
 )
 
