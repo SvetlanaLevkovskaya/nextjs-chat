@@ -1,12 +1,12 @@
 .messageContainer {
-  @apply grid grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-2;
+  @apply grid grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-x-2;
 
   .imageWrapper {
     @apply bg-blue-500 rounded-md overflow-hidden mb-1 w-[180px] sm-500:w-[250px] h-auto;
   }
 
   .messageText {
-    @apply max-w-[25ch] sm-500:max-w-[50ch] break-words;
+    @apply max-w-[25ch] sm-500:max-w-[200px] break-words;
   }
 
   .messageFooter {

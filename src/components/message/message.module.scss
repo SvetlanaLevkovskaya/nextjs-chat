@@ -10,7 +10,7 @@
   }
 
   .messageBubble {
-    @apply relative h-full rounded-md px-2 py-1;
+    @apply relative h-full rounded-md px-1.5 pt-1 pb-0.5;
 
     &.myMessage {
       @apply relative bg-blue-600 text-white;

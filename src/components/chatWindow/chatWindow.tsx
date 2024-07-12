@@ -28,7 +28,7 @@ export const ChatWindow = () => {
         const botMessage: IMessage = {
           id: Date.now(),
           user: 'bot',
-          text: 'Hello World!',
+          text: 'That works- I was actually planning to\n' + 'get a smoothie anyways 👍',
           timestamp: dayjs().format('h:mm A'),
         }
         addMessage(botMessage)
