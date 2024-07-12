@@ -15,14 +15,14 @@ interface MessageContainerProps {
 
 export const MessageWrapper: FC<MessageContainerProps> = ({ message }) => (
   <div className={styles.messageContainer}>
-    {message.imageUrl && (
-      <div className={styles.imageWrapper}>
-        <Image src={message.imageUrl} alt="Uploaded" width={250} height={250} />
-      </div>
-    )}
-
-    <p className={styles.messageText}>{message.text}</p>
-
+    <div>
+      {message.imageUrl && (
+        <div className={styles.imageWrapper}>
+          <Image src={message.imageUrl} alt="Uploaded" width={250} height={250} />
+        </div>
+      )}
+      <div className={styles.messageText}>{message.text}</div>
+    </div>
     <div className={styles.messageFooter}>
       <p
         className={clsx({

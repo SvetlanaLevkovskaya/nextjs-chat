@@ -1,10 +1,16 @@
 .messageContainer {
+  @apply grid grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-2;
+
+  .imageWrapper {
+    @apply bg-blue-500 rounded-md overflow-hidden mb-1 w-[180px] sm-500:w-[250px] h-auto;
+  }
+
   .messageText {
-    @apply break-words;
+    @apply max-w-[25ch] sm-500:max-w-[50ch] break-words;
   }
 
   .messageFooter {
-    @apply flex justify-end items-center gap-1;
+    @apply flex justify-end items-center gap-1 row-start-2 col-start-2;
   }
 
   .textNeutral500 {
@@ -13,8 +19,5 @@
 
   .fontLight {
     @apply font-extralight;
-  }
-  .imageWrapper {
-    @apply bg-blue-500 rounded-md overflow-hidden mb-1 w-[250px] h-auto;
   }
 }

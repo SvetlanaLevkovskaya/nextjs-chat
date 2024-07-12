@@ -51,15 +51,11 @@ export const Message: FC<MessageProps> = ({ message }) => {
     [styles.botMessage]: message.user !== 'me',
   })
 
-  const messageWidthStyle = !message.imageUrl
-    ? { width: `calc(${message.text.length}ch + ${message.timestamp?.length}ch)` }
-    : {}
-
   return (
     <div className={wrapperStyle}>
       {message.user !== 'me' && <AvatarWrapper />}
 
-      <div className={messageStyle} style={messageWidthStyle}>
+      <div className={messageStyle}>
         {message.user !== 'me' && <TitleWrapper />}
         {isEditing ? (
           <input
