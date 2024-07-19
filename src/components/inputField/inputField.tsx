@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useCallback, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import { SendOutlined, SmileOutlined, UploadOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
@@ -13,11 +13,20 @@ import { IMessage } from '@/types'
 
 export const InputField = () => {
   const [text, setText] = useState('')
+  const [isFocused, setIsFocused] = useState(false)
   const { addMessage } = useStore((state) => ({
     addMessage: state.addMessage,
   }))
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    if (inputRef.current) {
+      'focus' in inputRef.current && inputRef.current.focus()
+      setIsFocused(true)
+    }
+  }, [])
 
   const handleSend = useCallback(() => {
     const trimmedText = text.trim()
@@ -50,14 +59,18 @@ export const InputField = () => {
         }
         reader.readAsDataURL(file)
         setText('')
-        fileInputRef.current && 'value' in fileInputRef.current && (fileInputRef.current.value = '')
+        if (fileInputRef.current) {
+          'value' in fileInputRef.current && (fileInputRef.current.value = '')
+        }
       }
     },
     [addMessage, text]
   )
 
   const handleUploadClick = () => {
-    fileInputRef.current && 'click' in fileInputRef.current && fileInputRef.current.click()
+    if (fileInputRef.current) {
+      'click' in fileInputRef.current && fileInputRef.current.click()
+    }
   }
 
   return (
@@ -65,10 +78,13 @@ export const InputField = () => {
       <SmileOutlined style={{ color: '#3D3D3D', fontSize: 16 }} aria-label="Emoji Picker" />
 
       <input
+        ref={inputRef}
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         placeholder="Start typing..."
         autoFocus
       />
@@ -78,7 +94,7 @@ export const InputField = () => {
           <UploadOutlined aria-label="Upload" style={{ fontSize: 16 }} />
         </div>
         <div
-          className={clsx(styles.sendIconWrapper, { [styles.activeSendIcon]: text })}
+          className={clsx(styles.sendIconWrapper, { [styles.activeSendIcon]: text || isFocused })}
           onClick={handleSend}
         >
           <SendOutlined aria-label="Send" style={{ fontSize: 16 }} />
